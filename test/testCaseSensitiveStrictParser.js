@@ -55,6 +55,24 @@ describe("strict parser that is case insensitive",function(){
     assert.deepEqual(parsed,expected);
   })
 
+  it("should parse keys when specified keys are both digits and letters",function(){
+    let kvParser=new StrictParser(["NaMe_123","AgE"],false);
+    let expected=new Parsed();
+    expected["NAME_123"]="jayanth";
+    expected["Age"] = "23";
+    let parsed=kvParser.parse("NAME_123=jayanth Age=23");
+    assert.deepEqual(parsed,expected);
+  })
+
+  it("should parse keys when specified keys are both digits and letters",function(){
+    let kvParser=new StrictParser(["NaMe_123","AgE"],false);
+    let expected=new Parsed();
+    expected["NAME_123"]="jayanth";
+    expected["Age"] = "23";
+    let parsed=kvParser.parse("NAME_123=jayanth Age=23");
+    assert.deepEqual(parsed,expected);
+  })
+
 });
 
 
