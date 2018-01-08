@@ -45,6 +45,16 @@ describe("strict parser that is case insensitive",function(){
     let parsed=kvParser.parse("NAME=jayanth Age=23");
     assert.deepEqual(parsed,expected);
   })
+
+  it("should parse keys when specified key is in mixed case and actual is not regardless of values",function(){
+    let kvParser=new StrictParser(["NaMe","AgE"],false);
+    let expected=new Parsed();
+    expected["NAME"]="jayanth";
+    expected["Age"] = "23";
+    let parsed=kvParser.parse("NAME=jayanth Age=23");
+    assert.deepEqual(parsed,expected);
+  })
+
 });
 
 
