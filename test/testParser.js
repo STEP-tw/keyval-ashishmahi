@@ -218,7 +218,7 @@ describe("error handling",function(){
           throw e;
         }
       },
-      Error,"Missing value")
+      Error,"Missing value");
   });
 
   it("throws error on missing value when value is quoted",function(){
@@ -241,11 +241,11 @@ describe("error handling",function(){
           var p=kvParser.parse("=value");
         } catch (e) {
           throw e;
-          errorChecker(undefined,0,MissingKeyError)
+          errorChecker(undefined,0,MissingKeyError);
         }
       },
       Error,"Missing key"
-    )
+    );
   });
 
   it("throws error on invalid key",function(){
@@ -259,7 +259,7 @@ describe("error handling",function(){
         }
       },
       Error,"Missing key"
-    )
+    );
   });
 
   it("throws error on missing assignment operator",function(){
@@ -273,7 +273,7 @@ describe("error handling",function(){
         }
       },
       Error,"Missing assignment operator"
-    )
+    );
   });
 
   it("throws error on incomplete key value pair",function(){
@@ -287,7 +287,7 @@ describe("error handling",function(){
         }
       },
       Error,"Missing key value pair"
-    )
+    );
   });
 
 });

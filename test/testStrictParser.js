@@ -11,7 +11,7 @@ var invalidKeyErrorChecker=function(key,pos) {
       return true;
     return false;
   }
-}
+};
 
 describe("strict parser",function(){
   it("should only parse keys that are specified for a single key",function(){
@@ -81,7 +81,7 @@ describe("strict parser",function(){
           kvParser.parse("color   = \"blue\"");
         } catch (e) {
           throw e;
-          invalidKeyErrorChecker("color",15)
+          invalidKeyErrorChecker("color",15);
         }
       },
       Error,"invalid key");
@@ -95,7 +95,7 @@ describe("strict parser",function(){
           kvParser.parse("name = john color   = \"light blue\"");
         } catch (e) {
           throw e;
-          invalidKeyErrorChecker("color",33)
+          invalidKeyErrorChecker("color",33);
         }
       },
       Error,"invalid key");
@@ -109,7 +109,7 @@ describe("strict parser",function(){
           kvParser.parse("name=john");
         } catch (e) {
           throw e;
-          invalidKeyErrorChecker("name",8)
+          invalidKeyErrorChecker("name",8);
         }
       },
       Error,"invalid key");
@@ -123,7 +123,7 @@ describe("strict parser",function(){
           kvParser.parse("name=john");
         } catch (e) {
           throw e;
-          invalidKeyErrorChecker("name",8)
+          invalidKeyErrorChecker("name",8);
         }
       },
       Error,"invalid key");
