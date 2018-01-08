@@ -214,8 +214,7 @@ describe("error handling",function(){
         try {
           kvParser.parse("key=");
         } catch (e) {
-          errorChecker("key",3,MissingValueError);
-          throw e;
+          if(errorChecker("key",3,MissingValueError)(e))throw e;
         }
       },
       Error,"Missing value");
@@ -227,8 +226,7 @@ describe("error handling",function(){
         try {
           kvParser.parse("key=\"value")
         } catch (e) {
-          throw e;
-          errorChecker("key",9,MissingEndQuoteError);
+          if(errorChecker("key",9,MissingEndQuoteError)(e)) throw e;
         }
       },
     Error,"Missing end quote");
@@ -240,8 +238,7 @@ describe("error handling",function(){
         try {
           var p=kvParser.parse("=value");
         } catch (e) {
-          throw e;
-          errorChecker(undefined,0,MissingKeyError);
+          if(errorChecker(undefined,0,MissingKeyError)(e)) throw e;
         }
       },
       Error,"Missing key"
@@ -254,8 +251,7 @@ describe("error handling",function(){
         try {
           var p=kvParser.parse("'foo'=value");
         } catch (e) {
-          throw e
-          errorChecker(undefined,0,MissingKeyError);
+          if(errorChecker(undefined,0,MissingKeyError)(e)) throw e;
         }
       },
       Error,"Missing key"
@@ -268,8 +264,7 @@ describe("error handling",function(){
         try {
           var p=kvParser.parse("key value");
         } catch (e) {
-          throw e;
-          errorChecker(undefined,4,MissingAssignmentOperatorError)
+          if(errorChecker(undefined,4,MissingAssignmentOperatorError)(e)) throw e;
         }
       },
       Error,"Missing assignment operator"
@@ -282,8 +277,7 @@ describe("error handling",function(){
         try {
           var p=kvParser.parse("key");
         } catch (e) {
-          throw e;
-          errorChecker(undefined,2,IncompleteKeyValuePairError)
+          if(errorChecker(undefined,2,IncompleteKeyValuePairError)(e)) throw e;
         }
       },
       Error,"Missing key value pair"

@@ -21,8 +21,7 @@ describe("strict parser",function(){
         try {
           var p=kvParser.parse("age=23");
         } catch (e) {
-          throw e;
-          invalidKeyErrorChecker("age",5);
+          if(invalidKeyErrorChecker("age",5)(e)) throw e;
         }
       },
       Error,"invalid key");
@@ -38,8 +37,7 @@ describe("strict parser",function(){
         try {
           var p=kvParser.parse("color=blue");
         } catch (e) {
-          throw e;
-          invalidKeyErrorChecker("color",9);
+          if(invalidKeyErrorChecker("color",9)(e)) throw e;
         }
       },
       Error,"invalid key");
@@ -52,8 +50,7 @@ describe("strict parser",function(){
           let kvParser=new StrictParser(["name","age"]);
           kvParser.parse("name=john color=blue age=23");
         } catch (e) {
-          throw e;
-          invalidKeyErrorChecker("color",20);
+          if(invalidKeyErrorChecker("color",20)(e)) throw e;
         }
       },
     Error,"invalid key");
@@ -66,8 +63,7 @@ describe("strict parser",function(){
           let kvParser=new StrictParser(["name","age"]);
           kvParser.parse("color   = blue");
         } catch (e) {
-          throw e;
-          invalidKeyErrorChecker("color",13);
+          if(invalidKeyErrorChecker("color",13)(e)) throw e;
         }
       },
       Error,"invalid key");
@@ -80,8 +76,7 @@ describe("strict parser",function(){
           let kvParser=new StrictParser(["name","age"]);
           kvParser.parse("color   = \"blue\"");
         } catch (e) {
-          throw e;
-          invalidKeyErrorChecker("color",15);
+          if(invalidKeyErrorChecker("color",15)(e)) throw e;
         }
       },
       Error,"invalid key");
@@ -94,8 +89,7 @@ describe("strict parser",function(){
           let kvParser=new StrictParser(["name","age"]);
           kvParser.parse("name = john color   = \"light blue\"");
         } catch (e) {
-          throw e;
-          invalidKeyErrorChecker("color",33);
+          if(invalidKeyErrorChecker("color",33)(e)) throw e;
         }
       },
       Error,"invalid key");
@@ -108,8 +102,7 @@ describe("strict parser",function(){
           let kvParser=new StrictParser([]);
           kvParser.parse("name=john");
         } catch (e) {
-          throw e;
-          invalidKeyErrorChecker("name",8);
+          if(invalidKeyErrorChecker("name",8)(e)) throw e;
         }
       },
       Error,"invalid key");
@@ -122,8 +115,7 @@ describe("strict parser",function(){
           let kvParser=new StrictParser();
           kvParser.parse("name=john");
         } catch (e) {
-          throw e;
-          invalidKeyErrorChecker("name",8);
+          if(invalidKeyErrorChecker("name",8)(e)) throw e;
         }
       },
       Error,"invalid key");
