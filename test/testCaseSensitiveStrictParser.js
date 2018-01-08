@@ -1,6 +1,4 @@
 const src=function(filePath){return "../src/"+filePath};
-const errors=function(filePath){return "../src/errors/"+filePath};
-const InvalidKeyError=require(errors('invalidKeyError.js'));
 const assert=require('chai').assert;
 const Parsed=require(src('parsed.js'));
 const StrictParser=require(src('index.js')).StrictParser;
@@ -22,19 +20,6 @@ describe("strict parser that is case insensitive",function(){
     expected["NAME"]="jayanth";
     let parsed=kvParser.parse("NAME=jayanth");
     assert.deepEqual(parsed,expected);
-  });
-
-  it("should throw error when specified keys are in lower case and actual is not",function(){
-    let kvParser=new StrictParser(["name"],true);
-    assert.throws(
-      () => {
-        try {
-          var p=kvParser.parse("NAME=JAYANT");
-        } catch (e) {
-          if(invalidKeyErrorChecker("NAME",10)(e)) throw e;
-        }
-      },
-      Error,"invalid key");
   });
 
   it("should parse when specified keys are in lower case and actual is not",function(){
@@ -72,7 +57,6 @@ describe("strict parser that is case insensitive",function(){
     let parsed=kvParser.parse("NAME_123=jayanth Age=23");
     assert.deepEqual(parsed,expected);
   })
-
 });
 
 
@@ -80,11 +64,32 @@ describe("strict parser that is case insensitive",function(){
 
 
 describe("strict parser that is case sensitive",function(){
-  it("should throw error when specified keys are in lower case and actual is not",function(){
+  it("should throw error when specified key is in lower case and actual is not",function(){
     let kvParser=new StrictParser(["name"],true);
     // true indicates that parser is case sensitive
     assert.throws(()=>{
       kvParser.parse("NAME=jayanth");
+    })
+  });
+
+  it("should throw error when specified keys are in lower case and actual is not",function(){
+    let kvParser=new StrictParser(["name","age"],true);
+    assert.throws(()=>{
+      kvParser.parse("NAME=jayanth age=23");
+    })
+  });
+
+  it("should throw error when specified keys are in upper case and actual is not",function(){
+    let kvParser=new StrictParser(["NAME","AGE"],true);
+    assert.throws(()=>{
+      kvParser.parse("name=jayanth age=23");
+    })
+  });
+
+  it("should throw error when specified keys are in mixed case  and actual is not",function(){
+    let kvParser=new StrictParser(["NAmE","AgE"],true);
+    assert.throws(()=>{
+      kvParser.parse("name=jayanth age=23");
     })
   });
 });
